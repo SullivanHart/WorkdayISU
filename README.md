@@ -25,7 +25,7 @@ Please contact [hartsul@iastate.edu](mailto:hartsul@iastate.edu) if you are have
 
 #### Bug fixes:
 
-- [ ] 
+- [x] 'Export Calendar' button appeared with mismatched CSS. 
 
 #### Features:
 
