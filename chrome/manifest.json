@@ -1,6 +1,6 @@
 {
   "name": "WorkdayISU",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A browser extension that allows you to export your calendar from ISU Workday.",
   "homepage_url": "https://github.com/SullivanHart/WorkdayISU",
   "manifest_version": 3,

@@ -2,8 +2,8 @@
 $ErrorActionPreference = "Stop"
 
 # Output zip names
-$MZ_zip = "ext-mozilla.zip"
-$CHRM_zip = "ext-chrome.zip"
+$MZ_zip = "ext_mozilla.zip"
+$CHRM_zip = "ext_chrome.zip"
 
 # Source items
 $cmmnFiles = @("src", "icons", "LICENSE.md")
