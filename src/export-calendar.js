@@ -4,12 +4,6 @@ const ctTimeZone = "America/Chicago";
 
 function createExportButton() {
 
-  const headerContents = document.querySelector(".WNIM");
-  if (!headerContents){
-    console.log( 'Header not found', headerContents );
-    return;
-  }
-
   if (!courseTables || !isTablesLoaded() ){
     console.log( 'Courses are invalid', courseTables );
     return;
@@ -20,16 +14,23 @@ function createExportButton() {
   let fileName = `ISU-classes-${now.getFullYear()}-${("0" + (now.getMonth() + 1)).slice(-2)}-${("0" + now.getDate()).slice(-2)}.ics`;
   link.setAttribute("download", fileName);
 
-  const downloadText = document.createElement("span");
-  downloadText.classList.add("WIQM");
-  downloadText.textContent = "Export Calendar";
+  const buttonBar = document.querySelector('ul[data-automation-id="buttonBar"]');
+  if (!buttonBar) {
+    console.warn('Button bar not found.');
+    return;
+  }
 
+  const existingButtonLi = buttonBar.querySelector('li button[data-automation-id="wd-MultiParameterButton"]')?.closest('li');
+  if (!existingButtonLi) {
+    console.warn('No existing button found to clone.');
+    return;
+  }
 
-  const downloadButton = document.createElement("button");
-  downloadButton.classList.add("WGQM", "WKQM", "WJ3N", "WD5", "WCPM");
-  downloadButton.appendChild( downloadText );
+  const exportButtonLi = existingButtonLi.cloneNode(true);
+  const exportButton = exportButtonLi.querySelector('button');
+  const exportSpan = exportButtonLi.querySelector('span[title]');
 
-  downloadButton.addEventListener("click", () => {
+  exportButton.addEventListener("click", () => {
     const iCalContent = createCalendarString();
     const blob = new Blob([iCalContent], {
       type: "text/calendar;charset=utf-8",
@@ -39,11 +40,21 @@ function createExportButton() {
     link.click();
   });
 
-  const downloadItem = document.createElement("li")
-  downloadItem.classList.add("WOIM")
-  downloadItem.appendChild( downloadButton );
+  const exportTitle = 'Export Calendar';
+  exportButton.title = exportTitle;
+  exportButton.id = 'wd-MultiParameterButton-custom-' + Date.now();
+  exportButton.dataset.metadataId = 'custom-' + Date.now();
+  exportButton.setAttribute('data-automation-task-ids', 'CUSTOM_TASK_ID');
 
-  headerContents.appendChild(downloadItem);
+
+  if (exportSpan) {
+    exportSpan.textContent = exportTitle;
+    exportSpan.title = exportTitle;
+  }
+
+  buttonBar.appendChild(exportButtonLi);
+
+
 }
 
 
