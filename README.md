@@ -17,7 +17,7 @@ It appears that small differences exist between different Universities' Workdays
 
 ## Usage
 
-This extension will soon be available on [Google Chrome]() and [Firefox](). After installation, the extension will display additional buttons whenever the user presses the 'Calendar View' button on the 'view my courses' page. This button is located to the right of the 'Edit Registration' button. 
+This extension will soon be available on [Google Chrome](https://chromewebstore.google.com/detail/workdayisu/jlaahhggbddebaagnlmbjmjimjkffegi) and [Firefox](https://addons.mozilla.org/en-US/firefox/addon/workdayisu/). After installation, the extension will display additional buttons whenever the user presses the 'Calendar View' button on the 'view my courses' page. This button is located to the right of the 'Edit Registration' button. 
 
 ## What's next?
 
@@ -31,5 +31,5 @@ Please contact [hartsul@iastate.edu](mailto:hartsul@iastate.edu) if you are have
 
 - [x] Ability to export calendar
 - [ ] Skip holidays
-- [ ] Add course final scheduels from Registrar.
+- [ ] Add course final schedules from Registrar.
 
