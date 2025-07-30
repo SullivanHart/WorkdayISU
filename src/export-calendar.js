@@ -2,7 +2,7 @@
 
 const ctTimeZone = "America/Chicago";
 
-function createExportButton() {
+function createExportButtons() {
 
   if (!courseTables || !isTablesLoaded() ){
     console.log( 'Courses are invalid', courseTables );
@@ -14,45 +14,50 @@ function createExportButton() {
   let fileName = `ISU-classes-${now.getFullYear()}-${("0" + (now.getMonth() + 1)).slice(-2)}-${("0" + now.getDate()).slice(-2)}.ics`;
   link.setAttribute("download", fileName);
 
-  const buttonBar = document.querySelector('ul[data-automation-id="buttonBar"]');
-  if (!buttonBar) {
-    console.warn('Button bar not found.');
+  const buttonBars = document.querySelectorAll('ul[data-automation-id="buttonBar"]');
+  if (!buttonBars) {
+    console.warn('No button bar not found.');
     return;
   }
 
-  const existingButtonLi = buttonBar.querySelector('li button[data-automation-id="wd-MultiParameterButton"]')?.closest('li');
-  if (!existingButtonLi) {
-    console.warn('No existing button found to clone.');
-    return;
-  }
+  for( let i = 0; i < buttonBars.length; i++ ){
 
-  const exportButtonLi = existingButtonLi.cloneNode(true);
-  const exportButton = exportButtonLi.querySelector('button');
-  const exportSpan = exportButtonLi.querySelector('span[title]');
+    let buttonBar = buttonBars[ i ];
 
-  exportButton.addEventListener("click", () => {
-    const iCalContent = createCalendarString();
-    const blob = new Blob([iCalContent], {
-      type: "text/calendar;charset=utf-8",
+    const existingButtonLi = buttonBar.querySelector('li button[data-automation-id="wd-MultiParameterButton"]')?.closest('li');
+    if (!existingButtonLi) {
+      console.warn('No existing button found to clone.');
+      return;
+    }
+
+    const exportButtonLi = existingButtonLi.cloneNode(true);
+    const exportButton = exportButtonLi.querySelector('button');
+    const exportSpan = exportButtonLi.querySelector('span[title]');
+
+    exportButton.addEventListener("click", () => {
+      const iCalContent = createCalendarString( i );
+      const blob = new Blob([iCalContent], {
+        type: "text/calendar;charset=utf-8",
+      });
+      const url = URL.createObjectURL(blob);
+      link.href = url;
+      link.click();
     });
-    const url = URL.createObjectURL(blob);
-    link.href = url;
-    link.click();
-  });
 
-  const exportTitle = 'Export Calendar';
-  exportButton.title = exportTitle;
-  exportButton.id = 'wd-MultiParameterButton-custom-' + Date.now();
-  exportButton.dataset.metadataId = 'custom-' + Date.now();
-  exportButton.setAttribute('data-automation-task-ids', 'CUSTOM_TASK_ID');
+    const exportTitle = 'Export Calendar';
+    exportButton.title = exportTitle;
+    exportButton.id = 'wd-MultiParameterButton-custom-' + Date.now();
+    exportButton.dataset.metadataId = 'custom-' + Date.now();
+    exportButton.setAttribute('data-automation-task-ids', 'CUSTOM_TASK_ID');
 
 
-  if (exportSpan) {
-    exportSpan.textContent = exportTitle;
-    exportSpan.title = exportTitle;
+    if (exportSpan) {
+      exportSpan.textContent = exportTitle;
+      exportSpan.title = exportTitle;
+    }
+
+    buttonBar.appendChild(exportButtonLi);
   }
-
-  buttonBar.appendChild(exportButtonLi);
 
 
 }
@@ -81,12 +86,12 @@ function generateVTIMEZONE() {
   return `BEGIN:VTIMEZONE\r\nTZID:America/Chicago\r\nBEGIN:STANDARD\r\nDTSTART:20241103T090000Z\r\nRRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11\r\nTZOFFSETFROM:-0700\r\nTZOFFSETTO:-0800\r\nTZNAME:PST\r\nEND:STANDARD\r\nBEGIN:DAYLIGHT\r\nDTSTART:20240310T100000Z\r\nRRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3\r\nTZOFFSETFROM:-0800\r\nTZOFFSETTO:-0700\r\nTZNAME:PDT\r\nEND:DAYLIGHT\r\nEND:VTIMEZONE\r\n`;
 }
 
-function createCalendarString() {
+function createCalendarString( tbl_idx ) {
   parseCourseInfo();
   let calendar =
     "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:better-workday-calendar\r\n";
   calendar += generateVTIMEZONE();
-  for (let calendarObject of calendarObjects) {
+  for (let calendarObject of calendarObjects[ tbl_idx ] ) {
     calendar += addEvent(calendarObject);
   }
   calendar += "END:VCALENDAR";

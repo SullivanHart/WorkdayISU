@@ -5,7 +5,7 @@ let lastUrl = location.href;
 function tryParse() {
   if (isTablesLoaded()) {
     clearInterval(intervalID);
-    createExportButton();
+    createExportButtons();
   }
 }
 

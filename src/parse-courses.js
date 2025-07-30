@@ -22,7 +22,12 @@ const dayOfWeekToNum = new Map([
 function parseCourseInfo() {
 
   calendarObjects = [];
-  for (let i = 0; i < courseTables.length; i++) { // TODO: change to [0]? Or otherwise verify that it's the correct table
+
+  for (let i = 0; i < courseTables.length; i++) {
+
+    calendarObjects.push( [] );
+    calendarObjects_idx = calendarObjects.length - 1;
+
     const courseRows = courseTables[i].rows;
     for (let j = 2; j < courseRows.length; j++) {
       const courseRow = courseRows[j];
@@ -60,7 +65,7 @@ function parseCourseInfo() {
           endTime: endTime,
           location: location,
         };
-        calendarObjects.push(calendarObject);
+        calendarObjects[ calendarObjects_idx ].push(calendarObject);
       }
     }
   }

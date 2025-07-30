@@ -23,10 +23,12 @@ Please contact [hartsul@iastate.edu](mailto:hartsul@iastate.edu) if you have fee
 #### Bug fixes:
 
 - [x] 'Export Calendar' button appeared with mismatched CSS. 
+- [x] Support multiple schedules.
+- [x] Skip waitlisted/online courses.
 
 #### Features:
 
 - [x] Ability to export calendar
 - [ ] Skip holidays
-- [ ] Add course final schedules from the registrar.
+- [ ] Add courses' final schedules from the registrar.
 
