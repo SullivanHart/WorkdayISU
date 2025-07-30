@@ -50,13 +50,19 @@ function createExportButtons() {
     exportButton.dataset.metadataId = 'custom-' + Date.now();
     exportButton.setAttribute('data-automation-task-ids', 'CUSTOM_TASK_ID');
 
-
     if (exportSpan) {
       exportSpan.textContent = exportTitle;
       exportSpan.title = exportTitle;
     }
 
-    buttonBar.appendChild(exportButtonLi);
+    const oldButton = buttonBar.querySelector( 'button[data-automation-id="wd-MultiParameterButton"][title="Export Calendar"]' );
+    if ( oldButton ){
+      oldButton.replaceWith(exportButton);
+      console.log( 'Export button updated.');
+    } else {
+      buttonBar.appendChild(exportButtonLi);
+      console.log( 'Export button added.');
+    }
   }
 
 
