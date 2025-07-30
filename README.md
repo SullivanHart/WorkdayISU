@@ -25,6 +25,7 @@ Please contact [hartsul@iastate.edu](mailto:hartsul@iastate.edu) if you have fee
 - [x] 'Export Calendar' button appeared with mismatched CSS. 
 - [x] Support multiple schedules.
 - [x] Skip waitlisted/online courses.
+- [x] Prevent extra buttons from being added.
 
 #### Features:
 
