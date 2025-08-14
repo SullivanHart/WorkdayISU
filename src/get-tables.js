@@ -61,7 +61,11 @@ function isContainerEnrolled( container ){
 // Get the name of a table
 function getContainerName( container ) {
 
-  const name = container.querySelector(':scope span.gwt-InlineLabel.WATJ[data-automation-id="gridTitleLabel"]');
+  const name = container.querySelector(':scope span[data-automation-id="gridTitleLabel"]');
+
+  console.log( container );
+  console.log( name );
+
   return name.getAttribute( 'title' );
 
 }
